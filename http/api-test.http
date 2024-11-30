@@ -1,10 +1,26 @@
 ###
-GET http://localhost:80/boards
+POST http://localhost:80/auth/login
+Content-Type: application/json
+
+{
+  "username": "test",
+  "password": "test"
+}
+
+###
+POST http://localhost:80/auth/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzMyOTMyNTc5LCJleHAiOjE3MzI5MzYxNzl9.AdR08QyOBgriMgk42BgEdcBNEe32II-Bt31w6Nug80k
+Content-Type: application/json
+
+
+###
+GET http://localhost:80/api/boards
 Accept: application/json
 
 ###
-POST http://localhost:80/boards
+POST http://localhost:80/api/boards
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzMyOTMyNTc5LCJleHAiOjE3MzI5MzYxNzl9.AdR08QyOBgriMgk42BgEdcBNEe32II-Bt31w6Nug80k
 
 {
   "title" : "제목입니다.",
@@ -13,11 +29,11 @@ Content-Type: application/json
  }
 
 ###
-GET http://localhost:80/boards/1
+GET http://localhost:80/api/boards/1
 Accept: application/json
 
 ###
-PUT http://localhost:80/boards/1
+PUT http://localhost:80/api/boards/1
 Content-Type: application/json
 
 {
@@ -27,4 +43,4 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:80/boards/1
+DELETE http://localhost:80/api/boards/1
