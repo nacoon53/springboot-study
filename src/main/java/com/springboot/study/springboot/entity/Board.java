@@ -28,7 +28,7 @@ public class Board {
     private long userId;
 
     @Column(nullable = false)
-    private int viewCnt = 0;
+    private int viewCount = 0;
 
     @Column(nullable = false, length=1)
     private char privacyFlag = 'N';

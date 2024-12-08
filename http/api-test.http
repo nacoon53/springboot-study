@@ -9,18 +9,19 @@ Content-Type: application/json
 
 ###
 POST http://localhost:80/auth/logout
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzMyOTMyNTc5LCJleHAiOjE3MzI5MzYxNzl9.AdR08QyOBgriMgk42BgEdcBNEe32II-Bt31w6Nug80k
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzMzMDUzMTcxLCJleHAiOjE3MzMwNTY3NzF9.3on-Sq-k6ZUf5QJugaOsPZprGJ2qJa80tKMsd0FPV7M
 Content-Type: application/json
 
 
 ###
 GET http://localhost:80/api/boards
 Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzMzNjMzNjQ0LCJleHAiOjE3MzM2MzcyNDR9.E7mpR5a6prcoKl72zl2oZOJny7_D-klJqoRJ-VHrKD8
 
 ###
 POST http://localhost:80/api/boards
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzMyOTMyNTc5LCJleHAiOjE3MzI5MzYxNzl9.AdR08QyOBgriMgk42BgEdcBNEe32II-Bt31w6Nug80k
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzMzNjMzNjQ0LCJleHAiOjE3MzM2MzcyNDR9.E7mpR5a6prcoKl72zl2oZOJny7_D-klJqoRJ-VHrKD8
 
 {
   "title" : "제목입니다.",
@@ -31,6 +32,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzMyOTMyN
 ###
 GET http://localhost:80/api/boards/1
 Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzMzNjMzNjQ0LCJleHAiOjE3MzM2MzcyNDR9.E7mpR5a6prcoKl72zl2oZOJny7_D-klJqoRJ-VHrKD8
 
 ###
 PUT http://localhost:80/api/boards/1
