@@ -1,10 +1,7 @@
 package com.springboot.study.springboot.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -12,6 +9,9 @@ import java.time.LocalDateTime;
 @Table(name="board")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Board {
     @Id
     @Column(name="board_id")

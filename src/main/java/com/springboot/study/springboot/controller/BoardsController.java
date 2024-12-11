@@ -1,12 +1,15 @@
 package com.springboot.study.springboot.controller;
 
 import com.springboot.study.springboot.entity.Board;
+import com.springboot.study.springboot.exception.BoardException;
 import com.springboot.study.springboot.service.BoardViewService;
 import com.springboot.study.springboot.service.BoardsService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/boards")  // 클래스 레벨에서 기본 경로를 설정
@@ -20,11 +23,19 @@ public class BoardsController {
         this.boardViewService = boardViewService;
     }
 
-    // 게시판 생성 (Create)
+    // 게시글 생성 (Create)
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Board createBoard(@RequestBody Board board) {
-        return boardsService.createBoard(board);  // BoardService에 위임
+    public ResponseEntity<?> createBoard(@RequestBody Board board) {
+        try{
+            Board createdBoard = boardsService.createBoard(board);  // BoardService에 위임
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdBoard); // 성공 시
+        } catch (BoardException e) {
+            // 에러 메시지와 상태 코드 반환
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("error", e.getMessage())); // 에러 메시지를 JSON으로 변환
+        }
     }
 
     // 게시판 목록 조회 (Read - 목록)

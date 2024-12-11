@@ -1,8 +1,11 @@
 package com.springboot.study.springboot.service;
 
 import com.springboot.study.springboot.entity.Board;
+import com.springboot.study.springboot.exception.BoardException;
 import com.springboot.study.springboot.repository.BoardRepository;
+import io.micrometer.common.util.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,9 +19,27 @@ public class BoardsService {
         this.boardRepository = boardRepository;
     }
 
-    // 게시판 생성 (Create)
-    public Board createBoard(Board board) {
-        return boardRepository.save(board);
+    // 게시글 생성 (Create)
+    public Board createBoard(Board board) throws BoardException {
+        if(isBoardValid(board)) {
+            return boardRepository.save(board);
+        }
+
+        throw new BoardException("게시글 생성에 실패하였습니다.");
+    }
+
+    private boolean isBoardValid(Board board) throws BoardException{
+        if(StringUtils.isEmpty(board.getTitle())) {
+            throw new BoardException("제목이 비어있습니다.");
+        }
+        if(ObjectUtils.isEmpty(board.getContent())) {
+            throw new BoardException("내용이 비어있습니다.");
+        }
+        if(ObjectUtils.isEmpty(board.getUserId())) {
+            throw new BoardException("작성자 정보가 없습니다.");
+        }
+
+        return true;
     }
 
     // 게시판 목록 조회 (Read - 목록)
