@@ -4,6 +4,8 @@ import com.springboot.study.springboot.entity.Board;
 import com.springboot.study.springboot.exception.BoardException;
 import com.springboot.study.springboot.repository.BoardRepository;
 import io.micrometer.common.util.StringUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -28,6 +30,23 @@ public class BoardsService {
         throw new BoardException("게시글 생성에 실패하였습니다.");
     }
 
+    // 게시판 수정 (Update)
+    public Board updateBoard(Long id, Board boardDetails) throws BoardException{
+        Board board = boardRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("게시글을 찾을 수 없습니다."));
+
+        // 수정된 값 적용
+        board.setTitle(boardDetails.getTitle());
+        board.setContent(boardDetails.getContent());
+        board.setUserId(boardDetails.getUserId());
+
+        if(isBoardValid(board)) {
+            return boardRepository.save(board);
+        }
+
+        throw new BoardException("게시글 수정에 실패하였습니다.");
+    }
+
     private boolean isBoardValid(Board board) throws BoardException{
         if(StringUtils.isEmpty(board.getTitle())) {
             throw new BoardException("제목이 비어있습니다.");
@@ -43,8 +62,8 @@ public class BoardsService {
     }
 
     // 게시판 목록 조회 (Read - 목록)
-    public List<Board> getAllBoards() {
-        return boardRepository.findAll();
+    public Page<Board> getAllBoards(Pageable pageable) {
+        return boardRepository.findAll(pageable);
     }
 
     // 게시판 단건 조회 (Read - 단건)
@@ -53,18 +72,6 @@ public class BoardsService {
         return board.orElseThrow(() -> new RuntimeException("게시판을 찾을 수 없습니다."));
     }
 
-    // 게시판 수정 (Update)
-    public Board updateBoard(Long id, Board boardDetails) {
-        Board board = boardRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("게시판을 찾을 수 없습니다."));
-
-        // 수정된 값 적용
-        board.setTitle(boardDetails.getTitle());
-        board.setContent(boardDetails.getContent());
-        board.setUserId(boardDetails.getUserId());
-
-        return boardRepository.save(board);
-    }
 
     // 게시판 삭제 (Delete)
     public void deleteBoard(Long id) {
